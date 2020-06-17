@@ -661,7 +661,7 @@ cmd_git() {
 	elif [[ -n $INNER_GIT_DIR ]]; then
 		tmpdir nowarn #Defines $SECURE_TMPDIR. We don't warn, because at most, this only copies encrypted files.
 		export TMPDIR="$SECURE_TMPDIR"
-		git -C "$INNER_GIT_DIR" "$@"
+		git -C "$INNER_GIT_DIR" "$@" || exit $?
 	else
 		die "Error: the password store is not a git repository. Try \"$PROGRAM git init\"."
 	fi
