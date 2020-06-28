@@ -465,6 +465,9 @@ The \fBinit\fP command will keep signatures of \fB.gpg-id\fP files up to date.
 .TP
 .I EDITOR
 The location of the text editor used by \fBedit\fP.
+.SH EXIT CODES
+\fBpass\fP exits 0 on success, and 1 otherwise, except for the \fBgit\fP command, which returns
+the exit code of the git process it executes.
 .SH SEE ALSO
 .BR gpg2 (1),
 .BR tr (1),
