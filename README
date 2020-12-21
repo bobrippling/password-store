@@ -1,4 +1,13 @@
 ======================
+Fork of password-store
+
+Fork adds:
+- debian gpg patch
+- git exit status handling (pending acceptance on the mailing list - https://lists.zx2c4.com/pipermail/password-store/2020-June/004196.html)
+
+Original readme:
+
+======================
 Simple Password Store
 by Jason Donenfeld
    Jason@zx2c4.com
