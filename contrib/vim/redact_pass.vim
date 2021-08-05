@@ -1,3 +1,5 @@
+" from https://github.com/bobrippling/password-store/blob/master/contrib/vim/redact_pass.vim
+" upstream https://git.zx2c4.com/password-store/tree/contrib/vim/redact_pass.vim
 "
 " redact_pass.vim: Switch off the 'viminfo', 'backup', 'writebackup',
 " 'swapfile', and 'undofile' globally when editing a password in pass(1).
@@ -8,22 +10,9 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists('g:loaded_redact_pass') || &compatible
-  finish
-endif
-if !has('autocmd') || v:version < 600
-  finish
-endif
-let g:loaded_redact_pass = 1
 
 " Check whether we should set redacting options or not
 function! s:CheckArgsRedact()
-
-  " Ensure there's one argument and it's the matched file
-  if argc() != 1 || fnamemodify(argv(0), ':p') !=# expand('<afile>:p')
-    return
-  endif
-
   " Disable all the leaky options globally
   set nobackup
   set nowritebackup
@@ -36,9 +25,10 @@ function! s:CheckArgsRedact()
   " Tell the user what we're doing so they know this worked, via a message and
   " a global variable they can check
   redraw
-  echomsg 'Editing password file--disabled leaky options!'
-  let g:redact_pass_redacted = 1
-
+  echohl WarningMsg
+  echomsg 'Editing password file, disabled leaky options'
+  echohl None
+  let b:redact_pass_redacted = 1
 endfunction
 
 " Auto function loads only when Vim starts up
