@@ -36,7 +36,13 @@ set_git() {
 }
 git_add_file() {
 	[[ -n $INNER_GIT_DIR ]] || return
-	git -C "$INNER_GIT_DIR" add "$1" || return
+	if [[ "$1" == -u ]]; then
+		# git add -u ...
+		git -C "$INNER_GIT_DIR" add "$1" "$2" || return
+		shift
+	else
+		git -C "$INNER_GIT_DIR" add "$1" || return
+	fi
 	[[ -n $(git -C "$INNER_GIT_DIR" status --porcelain "$1") ]] || return
 	git_commit "$2"
 }
@@ -362,7 +368,7 @@ cmd_init() {
 	fi
 
 	reencrypt_path "$PREFIX/$id_path"
-	git_add_file "$PREFIX/$id_path" "Reencrypt password store using new GPG id ${id_print%, }${id_path:+ ($id_path)}."
+	git_add_file -u "$PREFIX/$id_path" "Reencrypt password store using new GPG id ${id_print%, }${id_path:+ ($id_path)}."
 }
 
 cmd_show() {
